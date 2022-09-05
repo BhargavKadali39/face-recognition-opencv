@@ -5,18 +5,13 @@ import numpy as np
 # Command: pip install pillow
 from PIL import Image
 
-#Initialize names and path to empty list 
-names = []
 path = []
 
-# Get the names of all the users
-for users in os.listdir("dataset"):
-    names.append(users)
-
+names = list(os.listdir("dataset"))
 # Get the path to all the images
 for name in names:
-    for image in os.listdir("dataset/{}".format(name)):
-        path_string = os.path.join("dataset/{}".format(name), image)
+    for image in os.listdir(f"dataset/{name}"):
+        path_string = os.path.join(f"dataset/{name}", image)
         path.append(path_string)
 
 
