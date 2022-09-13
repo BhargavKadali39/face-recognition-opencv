@@ -20,11 +20,10 @@ count = 1
 # Function to save the image
 def saveImage(image, userName, userId, imgId):
     # Create a folder with the name as userName
-    Path("dataset/{}".format(userName)).mkdir(parents=True, exist_ok=True)
+    Path(f"dataset/{userName}").mkdir(parents=True, exist_ok=True)
     # Save the images inside the previously created folder
-    cv2.imwrite("dataset/{}/{}_{}.jpg".format(userName, userId, imgId), image)
-    print("[INFO] Image {} has been saved in folder : {}".format(
-        imgId, userName))
+    cv2.imwrite(f"dataset/{userName}/{userId}_{imgId}.jpg", image)
+    print(f"[INFO] Image {imgId} has been saved in folder : {userName}")
 
 
 print("[INFO] Video Capture is now starting please stay still...")
@@ -57,19 +56,13 @@ while True:
     key = cv2.waitKey(1) & 0xFF
 
     # Check if the pressed key is 'k' or 'q'
-    if key == ord('s'):
-        # If count is less than 5 then save the image
-        if count <= 5:
-            roi_img = originalImg[coords[1] : coords[1] + coords[3], coords[0] : coords[0] + coords[2]]
-            saveImage(roi_img, userName, userId, count)
-            count += 1
-        else:
-            break
-    # If q is pressed break out of the loop
-    elif key == ord('q'):
+    if key == ord('s') and count <= 5:
+        roi_img = originalImg[coords[1] : coords[1] + coords[3], coords[0] : coords[0] + coords[2]]
+        saveImage(roi_img, userName, userId, count)
+        count += 1
+    elif key in [ord('s'), ord('q')]:
         break
-
-print("[INFO] Dataset has been created for {}".format(userName))
+print(f"[INFO] Dataset has been created for {userName}")
 
 # Stop the video camera
 vc.release()

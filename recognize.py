@@ -9,10 +9,7 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("training.yml")
 
 # Names corresponding to each id
-names = []
-for users in os.listdir("dataset"):
-    names.append(users)
-
+names = list(os.listdir("dataset"))
 img = cv2.imread("test/chris.jpeg")
 
 while True:
